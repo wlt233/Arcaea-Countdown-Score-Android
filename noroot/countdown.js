@@ -4,13 +4,14 @@
 * @Author: wlt233
 * @Time: 2020-04-04 03:51
 * @License: MIT
+* @Description: test on Arcaea version 2.6.0c
 */
 
 
 /* Settings */
 var ifCountDown = true;           // Choose whether use score countdown
 var ifAddShinyPure = false;       // Choose score start from 10000000(true) or FPM(false)
-var ifOutput = true;              // Choose whether print log or not
+var ifOutput = true;              // Choose whether print log or not, view it with "adb logcat -s "ArcaeaCountdown:V""
 
 
 if (ifCountDown) setTimeout(hook(), 500);
@@ -34,13 +35,15 @@ function hook() {
                 SCORE = 10000000 + ALL + SHINEPURE - PURE - Math.floor((1000000000 * (5 * FAR + 10 * LOST) / ALL + 999) / 1000);
             }
             var SCORE3 = Math.floor(SCORE / 3);
-            Memory.writeInt(PTR.add(0x10), SCORE);
-            Memory.writeInt(PTR.add(0x14), SCORE3);
+            if (PURE + FAR + LOST != ALL){
+                Memory.writeInt(PTR.add(0x10), SCORE);
+                Memory.writeInt(PTR.add(0x14), SCORE3);
+            }
             if (ifOutput) {
-                send("Miss!!");
-                send(PTR);
-                send("Lost " + LOST.toString() + "; Far " + FAR.toString() + "; Pure " + PURE.toString() + "; ShinyPure " + SHINEPURE.toString() + "; All " + ALL.toString());
-                send("Score " + SCORE.toString());
+                javaLog("Miss!!");
+                javaLog(PTR);
+                javaLog("Lost " + LOST.toString() + "; Far " + FAR.toString() + "; Pure " + PURE.toString() + "; ShinyPure " + SHINEPURE.toString() + "; All " + ALL.toString());
+                javaLog("Score " + SCORE.toString());
                 console.log(hexdump(Memory.readByteArray(PTR, 0x30), {
                     offset: 0,
                     length: 0x30,
@@ -68,13 +71,15 @@ function hook() {
                 SCORE = 10000000 + ALL + SHINEPURE - PURE - Math.floor((1000000000 * (5 * FAR + 10 * LOST) / ALL + 999) / 1000);
             }
             var SCORE3 = Math.floor(SCORE / 3);
-            Memory.writeInt(PTR.add(0x10), SCORE);
-            Memory.writeInt(PTR.add(0x14), SCORE3);
+            if (PURE + FAR + LOST != ALL){
+                Memory.writeInt(PTR.add(0x10), SCORE);
+                Memory.writeInt(PTR.add(0x14), SCORE3);
+            }
             if (ifOutput) {
-                send("Hit !!");
-                send(PTR);
-                send("Lost " + LOST.toString() + "; Far " + FAR.toString() + "; Pure " + PURE.toString() + "; ShinyPure " + SHINEPURE.toString() + "; All " + ALL.toString());
-                send("Score " + SCORE.toString());
+                javaLog("Hit !!");
+                javaLog(PTR);
+                javaLog("Lost " + LOST.toString() + "; Far " + FAR.toString() + "; Pure " + PURE.toString() + "; ShinyPure " + SHINEPURE.toString() + "; All " + ALL.toString());
+                javaLog("Score " + SCORE.toString());
                 console.log(hexdump(Memory.readByteArray(PTR, 0x30), {
                     offset: 0,
                     length: 0x30,
@@ -91,7 +96,7 @@ function hook() {
             /* Not using
             var ALL, LOST, FAR, PURE, SHINEPURE, SCORE;
             LOST = parseInt(args[0],16); FAR = parseInt(args[1],16); PURE = parseInt(args[2],16); SHINEPURE = parseInt(args[3],16); ALL = parseInt(args[4],16);
-            send("Lost " + LOST.toString() + "; Far " + FAR.toString() + "; Pure " + PURE.toString() + "; ShinyPure " + SHINEPURE.toString() + "; All " + ALL.toString());
+            javaLog("Lost " + LOST.toString() + "; Far " + FAR.toString() + "; Pure " + PURE.toString() + "; ShinyPure " + SHINEPURE.toString() + "; All " + ALL.toString());
             */
             All = parseInt(args[4],16);
         },
@@ -117,4 +122,9 @@ function hook() {
     });
 }
 
-
+function javaLog(payload){
+    Java.perform(function () {
+        var Log = Java.use("android.util.Log");
+        Log.v("ArcaeaCountdown", payload);
+    });
+}
