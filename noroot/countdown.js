@@ -11,7 +11,11 @@
 /* Settings */
 var ifCountDown = true;           // Choose whether use score countdown
 var ifAddShinyPure = false;       // Choose score start from 10000000(true) or FPM(false)
-var ifOutput = true;              // Choose whether print log or not, view it with "adb logcat -s "ArcaeaCountdown:V""
+var ifOutput = false;             // Choose whether print log or not
+                                  // View thhe log with: adb logcat -s "ArcaeaCountdown:V"
+                                  // Notice: if this option is on, Arcaea will get stucked when you hit the first note 
+                                  // after launched Arcaea because of the loading of android.util.Log
+                                  // It will be OK then. Just try to replay the song
 
 
 if (ifCountDown) setTimeout(hook(), 500);

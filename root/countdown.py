@@ -53,9 +53,10 @@ function hook(){
                 SCORE = 10000000 + ALL + SHINEPURE - PURE - Math.floor((1000000000 * (5 * FAR + 10 * LOST) / ALL + 999) / 1000);
             }
             var SCORE3 = Math.floor(SCORE / 3);
-            Memory.writeInt(PTR.add(0x10), SCORE);
-            Memory.writeInt(PTR.add(0x14), SCORE3);
-            
+            if (PURE + FAR + LOST != ALL){
+                Memory.writeInt(PTR.add(0x10), SCORE);
+                Memory.writeInt(PTR.add(0x14), SCORE3);
+            }
             if (ifOutput) {
                 send("Miss!!");
                 send(PTR);
@@ -88,9 +89,10 @@ function hook(){
                 SCORE = 10000000 + ALL + SHINEPURE - PURE - Math.floor((1000000000 * (5 * FAR + 10 * LOST) / ALL + 999) / 1000);
             }
             var SCORE3 = Math.floor(SCORE / 3);
-            Memory.writeInt(PTR.add(0x10), SCORE);
-            Memory.writeInt(PTR.add(0x14), SCORE3);
-            
+            if (PURE + FAR + LOST != ALL){
+                Memory.writeInt(PTR.add(0x10), SCORE);
+                Memory.writeInt(PTR.add(0x14), SCORE3);
+            }
             if (ifOutput) {
                 send("Hit !!");
                 send(PTR);
