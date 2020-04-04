@@ -3,8 +3,9 @@
 * @Project: Arcaea-Countdown-Score-Android
 * @Filename: countdown.py
 * @Author: wlt233
-* @Time: 2020-04-04 03:55
+* @Time: 2020-04-04 09:54
 * @License: MIT
+* @Description: test on Arcaea version 2.6.0c
 */
 """
 import frida
