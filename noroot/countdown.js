@@ -36,24 +36,16 @@ function hook() {
             if (ifAddShinyPure) {
                 SCORE = 10000000 + SHINEPURE - Math.floor((1000000000 * (5 * FAR + 10 * LOST) / ALL + 999) / 1000);
             } else {
-                SCORE = 10000000 + ALL + SHINEPURE - PURE - Math.floor((1000000000 * (5 * FAR + 10 * LOST) / ALL + 999) / 1000);
+                SCORE = 10000000 + ALL  - (PURE - SHINEPURE + FAR + LOST) - Math.floor((1000000000 * (5 * FAR + 10 * LOST) / ALL + 999) / 1000);
             }
             var SCORE3 = Math.floor(SCORE / 3);
-            if (PURE + FAR + LOST != ALL){
-                Memory.writeInt(PTR.add(0x10), SCORE);
-                Memory.writeInt(PTR.add(0x14), SCORE3);
-            }
+            Memory.writeInt(PTR.add(0x10), SCORE);
+            Memory.writeInt(PTR.add(0x14), SCORE3);
             if (ifOutput) {
-                javaLog("Miss!!");
-                javaLog(PTR);
+                javaLog("Miss!!   ptr=" + PTR.toString());
                 javaLog("Lost " + LOST.toString() + "; Far " + FAR.toString() + "; Pure " + PURE.toString() + "; ShinyPure " + SHINEPURE.toString() + "; All " + ALL.toString());
                 javaLog("Score " + SCORE.toString());
-                console.log(hexdump(Memory.readByteArray(PTR, 0x30), {
-                    offset: 0,
-                    length: 0x30,
-                    header: false,
-                    ansi: false
-                }));
+                javaLog(hexdump(Memory.readByteArray(PTR, 0x30), {offset: 0, length: 0x30, header: false, ansi: false}));
             }
         }
     });
@@ -72,24 +64,16 @@ function hook() {
             if (ifAddShinyPure) {
                 SCORE = 10000000 + SHINEPURE - Math.floor((1000000000 * (5 * FAR + 10 * LOST) / ALL + 999) / 1000);
             } else {
-                SCORE = 10000000 + ALL + SHINEPURE - PURE - Math.floor((1000000000 * (5 * FAR + 10 * LOST) / ALL + 999) / 1000);
+                SCORE = 10000000 + ALL - (PURE - SHINEPURE + FAR + LOST) - Math.floor((1000000000 * (5 * FAR + 10 * LOST) / ALL + 999) / 1000);
             }
             var SCORE3 = Math.floor(SCORE / 3);
-            if (PURE + FAR + LOST != ALL){
-                Memory.writeInt(PTR.add(0x10), SCORE);
-                Memory.writeInt(PTR.add(0x14), SCORE3);
-            }
+            Memory.writeInt(PTR.add(0x10), SCORE);
+            Memory.writeInt(PTR.add(0x14), SCORE3);
             if (ifOutput) {
-                javaLog("Hit !!");
-                javaLog(PTR);
+                javaLog("Hit !!   ptr=" + PTR.toString());
                 javaLog("Lost " + LOST.toString() + "; Far " + FAR.toString() + "; Pure " + PURE.toString() + "; ShinyPure " + SHINEPURE.toString() + "; All " + ALL.toString());
                 javaLog("Score " + SCORE.toString());
-                console.log(hexdump(Memory.readByteArray(PTR, 0x30), {
-                    offset: 0,
-                    length: 0x30,
-                    header: false,
-                    ansi: false
-                }));
+                javaLog(hexdump(Memory.readByteArray(PTR, 0x30), {offset: 0, length: 0x30, header: false, ansi: false}));
             }
         }
     });
