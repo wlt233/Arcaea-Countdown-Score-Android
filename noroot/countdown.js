@@ -2,7 +2,7 @@
 * @Project: Arcaea-Countdown-Score-Android
 * @Filename: countdown.js
 * @Author: wlt233
-* @Time: 2020-04-04 09:54
+* @Time: 2020-04-04 22:35
 * @License: MIT
 * @Description: test on Arcaea version 2.6.0c
 */
